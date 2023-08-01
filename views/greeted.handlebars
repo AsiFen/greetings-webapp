@@ -1,0 +1,13 @@
+<div class="wave flex flex-col justify-center items-center mt-12">
+    <p class="text-xl text-gray-500">People that have been greeted:</p>
+    <ol class="list-decimal"> <!-- This list will have numbers -->
+        {{#each usernames}}
+
+        <a class="hover:text-3xl hover:bg-red-500" href="/counter/{{this}}">
+            <li> {{this}}</li>
+        </a>
+
+        {{/each}}
+    </ol>
+   
+</div>

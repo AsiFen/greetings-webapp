@@ -1,0 +1,38 @@
+{
+  "name": "asisipho",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "AGPL-version-3.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [],
+  "author": " <missfente@gmail.com> (http:localhost:3005)",
+  "contributors": [],
+  "scripts": {
+    "dev": "",
+    "test": "mocha",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-handlebars": "^7.1.0",
+    "express-session": "^1.17.3",
+    "handlebars": "^4.7.7",
+    "nodemon": "^3.0.1",
+    "pg": "^8.11.2",
+    "pg-promise": "^11.5.2"
+  },
+  "description": ""
+}
