@@ -1,6 +1,8 @@
+//import database
+import db from './db.js';
+
 // made my function into a variable to 
-export default
-    function GreetingsExercise() {
+export default function GreetingsExercise() {
     let userNames = {};
     let greeting;
     let countGreeting = 0;
@@ -31,15 +33,25 @@ export default
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
+                // Update the count in the 'greeting_counts' table
+                db.none('INSERT INTO greeting_counts(name, count) VALUES($1, 0)', [name])
+                    .catch((error) => {
+                        console.error('Error inserting greeting count into database:', error);
+                    });
             }
             userNames[name] += 1; // Update the count in the userNames object
+            // Update the count in the 'greeting_counts' table
+            db.none('UPDATE greeting_counts SET count = $1 WHERE name = $2', [userNames[name], name])
+                .catch((error) => {
+                    console.error('Error updating greeting count in database:', error);
+                });
             return countGreeting;
         } else {
             countGreeting += 0;
             return countGreeting;
         }
     }
-    
+
 
     function getNames() {
         let users_name = Object.keys(userNames)

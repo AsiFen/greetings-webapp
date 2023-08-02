@@ -5,14 +5,16 @@ import express from 'express'
 import Greetings from './greet.js'
 import exphbs from 'express-handlebars'
 import bodyParser from 'body-parser';
-
+//flash - still don't know what it does. How is different to normal templating?
 import flash from 'express-flash';
 import session from 'express-session';
+
+import db from './db.js';
 
 //creating an instance of the epxress module
 let app = express()
 //create an instance of my greetings function imported as module
-let greet_instance = Greetings()
+let greet_instance = Greetings(db)
 
 //configuring the handlebars module
 app.engine('handlebars', exphbs.engine());
@@ -38,6 +40,19 @@ app.use(bodyParser.json())
 
 //built-in static middleware from ExpressJS to use static resources
 app.use(express.static('public'))
+
+
+// Test route to select data from the 'greetings' table
+app.get('/test', async (req, res) => {
+    try {
+      // Replace 'greetings' with the name of your table
+      const result = await db.any('SELECT * FROM greeting_counts');
+      res.json(result);
+    } catch (error) {
+      console.error('Error executing query:', error);
+      res.status(500).json({ error: 'Failed to retrieve data from the database.' });
+    }
+  });
 
 //root directory
 //displays greetings index page 
