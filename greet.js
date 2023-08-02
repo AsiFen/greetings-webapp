@@ -2,7 +2,7 @@
 import db from './db.js';
 
 // made my function into a variable to 
-export default function GreetingsExercise() {
+export default function GreetingsExercise(db) {
     let userNames = {};
     let greeting;
     let countGreeting = 0;
