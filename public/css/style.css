@@ -20,9 +20,11 @@ padding: 2px;
 background-color: teal;
 }
 
-.wave{
-    background-image: url(../img/wave.gif);
-    opacity: 0.7;
- height: 500px;
+@media (max-width:320px) {
+    .index{
+        font-size: smaller;
+    }
+    .greet_user{
+        justify-content: center;
+    }
 }
-

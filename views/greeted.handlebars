@@ -1,10 +1,12 @@
 <div class="wave flex flex-col justify-center items-center mt-12">
-    <p class="text-xl text-gray-500">People that have been greeted:</p>
+    <p class="text-2xl text-gray-900 mb-3 underline">Names Greeted</p>
     <ol class="list-decimal"> <!-- This list will have numbers -->
         {{#each usernames}}
 
-        <a class="hover:text-3xl hover:bg-red-500" href="/counter/{{this}}">
-            <li> {{this}}</li>
+        <a class="hover:bg-red-500" href="/counter/{{this}}">
+            <li class="py-2 px-2 mx-4 mb-2"> {{this}}
+                 <button class="bg-purple-500 py-2 mb-2 px-2 mx-4 justify-items-end float-right rounded">view</button>
+            </li> 
         </a>
 
         {{/each}}
