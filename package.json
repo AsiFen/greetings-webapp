@@ -16,7 +16,7 @@
   },
   "bugs": "",
   "keywords": [],
-  "author": " <missfente@gmail.com> (http:localhost:3005)",
+  "author": "(http:localhost:3005)",
   "contributors": [],
   "scripts": {
     "dev": "",
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-flash": "^0.0.2",
     "express-handlebars": "^7.1.0",
@@ -32,7 +33,7 @@
     "handlebars": "^4.7.7",
     "nodemon": "^3.0.1",
     "pg": "^8.11.2",
-    "pg-promise": "^11.5.2"
+    "pg-promise": "^11.5.3"
   },
   "description": ""
 }

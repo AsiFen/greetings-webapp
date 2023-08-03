@@ -34,10 +34,11 @@ export default function GreetingsExercise(db) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
                 // Update the count in the 'greeting_counts' table
-                db.none('INSERT INTO greeting_counts(name, count) VALUES($1, 0)', [name])
+                db.none('INSERT INTO greeting_counts(name, count) VALUES($1, 0) ON CONFLICT (name) DO UPDATE SET count = greeting_counts.count + 1', [name])
                     .catch((error) => {
-                        console.error('Error inserting greeting count into database:', error);
+                        console.error('Error inserting/updating greeting count into database:', error);
                     });
+
             }
             userNames[name] += 1; // Update the count in the userNames object
             // Update the count in the 'greeting_counts' table
@@ -52,7 +53,6 @@ export default function GreetingsExercise(db) {
         }
     }
 
-
     function getNames() {
         let users_name = Object.keys(userNames)
         return users_name
@@ -63,6 +63,9 @@ export default function GreetingsExercise(db) {
     }
 
     function errors(name, language) {
+        if (!name.match(/^[a-zA-Z]+$/)) {
+            return 'Enter alphabetical characters'
+        }
         if (name == '' && language == null) {
             return "Please enter name and select language."
         }
@@ -72,7 +75,6 @@ export default function GreetingsExercise(db) {
         if (name == '') {
             return "Please enter your name."
         }
-
     }
 
     return {
