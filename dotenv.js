@@ -1,4 +1,4 @@
-///checkigng if env is set or not 
+///checking if env is set or not 
 
 import dotenv from 'dotenv';
 
