@@ -34,6 +34,7 @@ describe('Database Tests', () => {
     const result = await db.one('SELECT count FROM greeting_counts WHERE name = $1', ['Thando']);
     assert.strictEqual(result.count, 1);
   });
+});
 
 
 after(async () => {
