@@ -3,5 +3,8 @@
         
         "configurations": [],
         "compounds": []
-    }
+    },
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/node.js.yml"
+    ]
 }
