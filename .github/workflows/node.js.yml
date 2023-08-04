@@ -38,8 +38,6 @@ jobs:
     - name: Install dependencies
       run: npm install
     - name: create postgresql tables
-      run: PGPASSWORD=mBANIlUToXYk6YQhwlqX3Um62XLUaZmx psql -h dpg-cj4l5os5kgrc739mq7l0-a.oregon-postgres.render.com -U asifen users_db_rymv --set=sslmode=disable
+      run: PGPASSWORD=mBANIlUToXYk6YQhwlqX3Um62XLUaZmx psql -h dpg-cj4l5os5kgrc739mq7l0-a.oregon-postgres.render.com -U asifen users_db_rymv
     - name: run tests with postgresql
       run: npm test
-      env:
-        DATABASE_URL: postgres://asifen:mBANIlUToXYk6YQhwlqX3Um62XLUaZmx@dpg-cj4l5os5kgrc739mq7l0-a.oregon-postgres.render.com:5432/users_db_rymv
