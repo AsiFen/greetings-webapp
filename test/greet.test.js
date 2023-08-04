@@ -18,6 +18,7 @@ import db from '../db.js';
 describe('Database Tests For Greetings WebApp', () => {
 
   it('should insert a new greeting count into the database', async () => {
+    // this.timeout(10000)
     const greet_instance = GreetingsExercise(db);
     greet_instance.makeGreet('Lavu', 'english');
     greet_instance.countGreet();
@@ -28,8 +29,9 @@ describe('Database Tests For Greetings WebApp', () => {
     // Compare the value of 'result.count' directly to the expected value
     assert.strictEqual(result.count, 1);
 
-    // done();
+    done();
   });
+  
   after(function () {
     db.$pool.end;
 });
