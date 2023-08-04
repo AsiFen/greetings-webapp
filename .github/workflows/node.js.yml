@@ -16,16 +16,30 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 16.x, 18.x]
+        node-version: [16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
+    services:
+      postgres:
+        image: postgres:latest
+        env: 
+          POSTGRES_USER: asifen
+          POSTGRES_PASSWORD: mBANIlUToXYk6YQhwlqX3Um62XLUaZmx
+          POSTGRES_DB: users_db_rymv
+        ports:
+        - ::1:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install dependencies
+      run: npm install
+    - name: create postgresql tables
+      run: PGPASSWORD=mBANIlUToXYk6YQhwlqX3Um62XLUaZmx psql -h dpg-cj4l5os5kgrc739mq7l0-a.oregon-postgres.render.com -U asifen users_db_rymv
+    - name: run tests with postgresql
+      run: npm test
+      env:
+        DATABASE_URL: postgres://asifen:mBANIlUToXYk6YQhwlqX3Um62XLUaZmx@dpg-cj4l5os5kgrc739mq7l0-a.oregon-postgres.render.com:5432/users_db_rymv
