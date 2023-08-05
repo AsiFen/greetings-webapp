@@ -6,14 +6,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // import db from '../db.js';
-// const connectPromise = {
-//   connectionString: process.env.DATABASE_URL,
-//     ssl: { rejectUnauthorized: false }, // this line to enable SSL/TLS with self-signed certificates
-// };
+const connectPromise = {
+  connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }, // this line to enable SSL/TLS with self-signed certificates
+};
 
 const pgp = pgPromise();
 
-const db = pgp(process.env.DATABASE_URL);
+const db = pgp(connectPromise);
 
 describe('Database Tests For Greetings WebApp', () => {
 
