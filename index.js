@@ -11,6 +11,7 @@ import session from 'express-session';
 
 import db from './db.js';
 
+
 //creating an instance of the epxress module
 let app = express()
 //create an instance of my greetings function imported as module
