@@ -8,8 +8,7 @@ dotenv.config();
 // import db from '../db.js';
 const connectPromise = {
   connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }, 
-    ssl: 'require'
+    ssl: true
     // this line to enable SSL/TLS with self-signed certificates
 };
 
