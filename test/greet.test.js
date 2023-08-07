@@ -1,7 +1,6 @@
 import assert from 'assert';
 import db from '../db.js';
 import Greetings from '../db-logic.js';
-import GreetingsExercise from "../greet.js";
 
 // import dotenv from 'dotenv';
 
@@ -14,14 +13,14 @@ import GreetingsExercise from "../greet.js";
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
 
-  beforeEach(async () => {
-    // Initialize the Greetings factory 
-    greetings = Greetings(db);
+  // beforeEach(async () => {
+  //   // Initialize the Greetings factory 
+  //   greetings = Greetings(db);
 
-    // Reset the database before each test
-    await greetings.reset();
+  //   // Reset the database before each test
+  //   await greetings.reset();
 
-  });
+  // });
 
   it('should insert and retrieve a name', async () => {
     await greetings.insertValues('Nonzwakazi');
