@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     
     services:
@@ -38,7 +38,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       env:
-        PGPASSWORD: postgres
+        PGPASSWORD: asisipho123
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
@@ -46,8 +46,8 @@ jobs:
     - run: npm install -g npm
     - run: npm install
     - run: |
-        PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users -a -f ./sql/garment.sql
-        PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users -a -f ./sql/data.sql
+        PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users
+        PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users 
     - run: npm run build --if-present
     - run: npm test
       env: 
