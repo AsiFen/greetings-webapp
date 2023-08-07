@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     
     services:
@@ -23,7 +23,6 @@ jobs:
         env:
           POSTGRES_DB: users
           POSTGRES_PASSWORD: asisipho123
-          POSTGRES_PORT: 5432
           POSTGRES_USER: asisipho
         ports:
           - 5432:5432
@@ -37,17 +36,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
-      env:
-        PGPASSWORD: postgres
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install -g npm
     - run: npm install
-    - run: |
-        PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users -a -f ./sql/garment.sql
-        PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users -a -f ./sql/data.sql
+    - run: PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users
     - run: npm run build --if-present
     - run: npm test
       env: 
