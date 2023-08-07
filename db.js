@@ -3,11 +3,10 @@ import 'dotenv/config';
 
 const connectPromise = {
     connectionString: process.env.DATABASE_URL,
-    ssl: true
+    ssl: {rejectUnaAuthorized: false}
 };
 
 const db = pgPromise()(connectPromise);
-
 db.connect() .then(result =>{
     console.log(result);
 })
