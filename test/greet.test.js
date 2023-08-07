@@ -4,6 +4,18 @@ import GreetingsExercise from "../greet.js";
 
 console.log(process.env.DATABASE_URL);
 // console.log(db.one('SELECT * FROM greeting_counts'))
+dotenv.config();
+
+// import db from '../db.js';
+const connectPromise = {
+  connectionString: process.env.DATABASE_URL,
+    ssl: true
+    // this line to enable SSL/TLS with self-signed certificates
+};
+
+const pgp = pgPromise();
+
+const db = pgp(connectPromise);
 
 describe('Database Tests For Greetings WebApp', () => {
   // this.timeout(10000);
