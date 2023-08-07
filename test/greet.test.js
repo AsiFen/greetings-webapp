@@ -13,14 +13,14 @@ import Greetings from '../db-logic.js';
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
 
-  // beforeEach(async () => {
-  //   // Initialize the Greetings factory 
-  //   greetings = Greetings(db);
+  beforeEach(async () => {
+    // Initialize the Greetings factory 
+    greetings = Greetings(db);
 
-  //   // Reset the database before each test
-  //   await greetings.reset();
+    // Reset the database before each test
+    await greetings.reset();
 
-  // });
+  });
 
   it('should insert and retrieve a name', async () => {
     await greetings.insertValues('Nonzwakazi');
@@ -93,5 +93,9 @@ describe('Database Tests For Greetings WebApp', () => {
 
     assert.strictEqual(allData.length, 0);
   });
+
+  after(function () {
+    db.$pool.end;
+});
 
 });
