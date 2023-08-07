@@ -98,6 +98,11 @@ app.get('/counter/:users_name', (req, res) => {
         userCount: count
     })
 })
+
+app.post('/reset', (req,res)=>{
+    
+res.redirect('/')
+})
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 3005;
 

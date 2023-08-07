@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 const connectPromise = {
     connectionString: process.env.DATABASE_URL,
-    ssl: {rejectUnaAuthorized: false}
+    ssl: {rejectUnauthorized: false} 
 };
 
 const db = pgPromise()(connectPromise);

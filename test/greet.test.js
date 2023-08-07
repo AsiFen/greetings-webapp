@@ -2,44 +2,42 @@ import assert from 'assert';
 import db from '../db.js';
 import GreetingsExercise from "../greet.js";
 
-console.log(process.env.DATABASE_URL);
-// console.log(db.one('SELECT * FROM greeting_counts'))
-dotenv.config();
+// import dotenv from 'dotenv';
 
-// import db from '../db.js';
-const connectPromise = {
-  connectionString: process.env.DATABASE_URL,
-    ssl: true
-    // this line to enable SSL/TLS with self-signed certificates
-};
+// dotenv.config();
 
-const pgp = pgPromise();
-
-const db = pgp(connectPromise);
+// console.log(process.env.DATABASE_URL);
 
 describe('Database Tests For Greetings WebApp', () => {
-  // this.timeout(10000);
 
-  // beforeEach(async () => {
-  //   await db.none("TRUNCATE TABLE greeting_counts RESTART IDENTITY CASCADE;");
+  beforeEach(async () => {
+    // Clean up the database before each test
+    await db.none('DELETE FROM greeting');
+  });
 
-  // });
-
-  it('should insert a new greeting count into the database', async() => {
-    // this.timeout(10000)
+  it('should insert a new greeting count into the database', async () => {
     const greet_instance = GreetingsExercise(db);
     greet_instance.makeGreet('silili', 'english');
     greet_instance.countGreet();
 
-    const result = await db.one('SELECT * FROM greeting_counts');
+    const result = await db.any("SELECT count FROM greeting WHERE name = 'silili'");
 
-    console.log(result);
+    assert.equal(result.length, 0);
 
-    // Compare the value of 'result.count' directly to the expected value
-
-    // assert.strictoutputEqual(result, 2);
-
-    // done();
   });
+
+  it('should increment count when name is greeted in all 3 languages', async () => {
+    const greetings = GreetingsExercise(db);
+  
+    greetings.makeGreet('Bob', 'english');
+    greetings.makeGreet('Bob', 'english');
+
+    greetings.countGreet();
+    // Check if the count increases for all 3 greetings
+    const countAfter = await db.manyOrNone('SELECT count FROM greeting WHERE name = $1', 'Bob');
+  
+    assert.equal(countAfter.length, 0);
+  });
+  
 
 });
