@@ -1,17 +1,19 @@
 import pgPromise from 'pg-promise';
+import 'dotenv/config';
 
 const connectPromise = {
-
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }, // this line to enable SSL/TLS with self-signed certificates
-
+    ssl: true
 };
 
+const db = pgPromise()(connectPromise);
 
-const pgp = pgPromise();
-
-const db = pgp(connectPromise);
+db.connect() .then(result =>{
+    console.log(result);
+})
+.catch(error =>{
+    console.log(error);
+})
 //export the database
-
 export default db;
 
