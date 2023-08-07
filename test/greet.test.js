@@ -1,5 +1,6 @@
 import assert from 'assert';
 import db from '../db.js';
+import Greetings from '../db-logic.js';
 import GreetingsExercise from "../greet.js";
 
 // import dotenv from 'dotenv';
@@ -8,36 +9,90 @@ import GreetingsExercise from "../greet.js";
 
 // console.log(process.env.DATABASE_URL);
 
+
+
 describe('Database Tests For Greetings WebApp', () => {
+  let greetings;
 
   beforeEach(async () => {
-    // Clean up the database before each test
-    await db.none('DELETE FROM greeting');
-  });
+    // Initialize the Greetings factory 
+    greetings = Greetings(db);
 
-  it('should insert a new greeting count into the database', async () => {
-    const greet_instance = GreetingsExercise(db);
-    greet_instance.makeGreet('silili', 'english');
-    greet_instance.countGreet();
-
-    const result = await db.any("SELECT count FROM greeting WHERE name = 'silili'");
-
-    assert.equal(result.length, 0);
+    // Reset the database before each test
+    await greetings.reset();
 
   });
 
-  it('should increment count when name is greeted in all 3 languages', async () => {
-    const greetings = GreetingsExercise(db);
-  
-    greetings.makeGreet('Bob', 'english');
-    greetings.makeGreet('Bob', 'english');
+  it('should insert and retrieve a name', async () => {
+    await greetings.insertValues('Nonzwakazi');
 
-    greetings.countGreet();
-    // Check if the count increases for all 3 greetings
-    const countAfter = await db.manyOrNone('SELECT count FROM greeting WHERE name = $1', 'Bob');
-  
-    assert.equal(countAfter.length, 0);
+    const result = await greetings.getName('Nonzwakazi');
+
+    assert.strictEqual(result.name, 'Nonzwakazi');
+    assert.strictEqual(result.count, 1);
   });
-  
+
+  it('should update the count for an existing name', async () => {
+
+    await greetings.insertValues('Zandisile');
+
+    await greetings.insertValues('Zandisile');
+
+    const result = await greetings.getName('Zandisile');
+
+    assert.strictEqual(result.count, 2);
+  });
+
+  it('should reset the database', async () => {
+
+    await greetings.insertValues('Ntomboxolo');
+
+    await greetings.reset();
+
+    const result = await greetings.getName('Ntomboxolo');
+
+    assert.strictEqual(result, null);
+  });
+
+  it('should update the count when calling updateName', async () => {
+    await greetings.insertValues('Yamisile');
+
+    await greetings.updateName('Yamisile', 2);
+
+    const result = await greetings.getName('Yamisile');
+    assert.strictEqual(result.count, 2);
+  });
+
+
+  it('should retrieve all names and counts from the database', async () => {
+    await greetings.insertValues('Asi');
+    await greetings.insertValues('Asiphe');
+    await greetings.insertValues('Asisiphe');
+    
+    // Retrieve all names and counts from the database
+    const allData = await greetings.getAll();
+
+    assert.deepStrictEqual(allData, [
+      {
+        count: 1,
+        name: 'Asi'
+      },
+      {
+        count: 1,
+        name: 'Asiphe'
+      },
+      {
+        count: 1,
+        name: 'Asisiphe'
+      }
+    ]);
+});
+
+  it('should retrieve an empty array when there are no entries in the database', async () => {
+    // Retrieve all names and counts from the empty database
+    const allData = await greetings.getAll();
+
+    assert.strictEqual(allData.length, 0);
+  });
 
 });
