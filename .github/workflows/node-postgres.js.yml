@@ -37,6 +37,8 @@ jobs:
     - uses: actions/checkout@v3
     - run: npm install
     - run: PGPASSWORD=asisipho123 psql -h localhost -U asisipho -d users
-    - run: npm test
+    # - run: npm test
+    - name: Run tests
+      run: npx mocha
       env: 
         DATABASE_URL: postgresql://asisipho:asisipho123@localhost:5432/users
