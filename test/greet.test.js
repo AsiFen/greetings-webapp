@@ -96,7 +96,7 @@ describe('Database Tests For Greetings WebApp', () => {
 
   after(function () {
     db.$pool.end;
-    
+
 });
 
 });

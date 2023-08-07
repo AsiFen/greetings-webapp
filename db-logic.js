@@ -8,7 +8,6 @@
 // -update the names as well as their counts 
 // - delete the db for my reset button
 
-
 export default function Greetings(db) {
 
     async function getAll() {
@@ -20,11 +19,12 @@ export default function Greetings(db) {
         const result = await db.oneOrNone('SELECT * FROM greeting WHERE name = $1', [nameGreeted]);
         return result
     }
+    
     async function reset() {
         const cleared = await db.none('DELETE FROM greeting')
         return cleared;
     }
-    
+
     async function insertValues(usersName) {
         try {
             await db.none('INSERT INTO greeting (name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [usersName]);
@@ -37,9 +37,10 @@ export default function Greetings(db) {
         const result = await db.none('UPDATE greeting SET count = $2 WHERE name = $1', [username, usercount]);
         return result;
     }
-    async function getCount(username){
-        const result = await db.oneOrNone('SELECT count FROM greeting WHERE name =$1',[username])
-return count;
+
+    async function getCount(username) {
+        const result = await db.oneOrNone('SELECT count FROM greeting WHERE name =$1', [username])
+        return count;
     }
 
     return {
