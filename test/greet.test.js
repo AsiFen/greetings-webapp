@@ -2,13 +2,6 @@ import assert from 'assert';
 import db from '../db.js';
 import Greetings from '../db-logic.js';
 
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-// console.log(process.env.DATABASE_URL);
-
-
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
@@ -16,10 +9,8 @@ describe('Database Tests For Greetings WebApp', () => {
   beforeEach(async () => {
     // Initialize the Greetings factory 
     greetings = Greetings(db);
-
     // Reset the database before each test
     await greetings.reset();
-
   });
 
   it('should insert and retrieve a name', async () => {
@@ -96,7 +87,6 @@ describe('Database Tests For Greetings WebApp', () => {
 
   after(function () {
     db.$pool.end;
-
 });
 
 });
