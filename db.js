@@ -3,6 +3,7 @@ import pgPromise from 'pg-promise';
 const connectPromise = {
     connectionString: process.env.DATABASE_URL,
     ssl: {rejectUnauthorized: false},
+    ssl: true
 };
 
 const db = pgPromise()(connectPromise);
