@@ -5,7 +5,7 @@ import pgPromise from 'pg-promise';
 
 const connectionString = process.env.DATABASE_URL || "postgres://localhost:5432/users";
 
-const db = pgp(connectionString);
+const db = pgPromise()(connectionString);
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
