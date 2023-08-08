@@ -34,17 +34,17 @@ export default function GreetingsExercise(db) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
                 // Update the count in the 'greeting_counts' table
-                db.none('INSERT INTO garments(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = garments.count + 1', [name])
+                db.none('INSERT INTO greeting(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [name])
                     .catch((error) => {
-                        console.error('Error inserting/updating garments count into database:', error);
+                        console.error('Error inserting/updating greeting count into database:', error);
                     });
 
             }
             userNames[name] += 1; // Update the count in the userNames object
-            // Update the count in the 'garments' table
-            db.none('UPDATE garments SET count = $1 WHERE name = $2', [userNames[name], name])
+            // Update the count in the 'greeting' table
+            db.none('UPDATE greeting SET count = $1 WHERE name = $2', [userNames[name], name])
                 .catch((error) => {
-                    console.error('Error updating garments count in database:', error);
+                    console.error('Error updating greeting count in database:', error);
                 });
             return countGreeting;
         } else {
