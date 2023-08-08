@@ -5,13 +5,14 @@ import Greetings from '../db/db-logic.js';
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
+  greetings = Greetings(db);
 
-  beforeEach(async () => {
-    // Initialize the Greetings factory 
-    greetings = Greetings(db);
-    // Reset the database before each test
-    await greetings.reset();
-  });
+  
+  // beforeEach(async () => {
+  //   // Initialize the Greetings factory 
+  //   // Reset the database before each test
+  //   await greetings.reset();
+  // });
 
   it('should insert and retrieve a name', async () => {
     await greetings.insertValues('Nonzwakazi');
