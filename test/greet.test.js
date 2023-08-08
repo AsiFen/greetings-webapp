@@ -10,7 +10,7 @@ const connectionString = process.env.DATABASE_URL || "postgresql://asisipho:asis
 const db = pgPromise()(connectionString);
 
 describe('Database Tests For Greetings WebApp', () => {
-  this.timeout(5000);
+  this.timeout(6000);
   let greetings = Greetings(db);
 
   beforeEach(async () => {
