@@ -48,4 +48,4 @@ jobs:
     - run: npm test
     env:
      PGSSLMODE: require
-     DATABASE_URL: postgres://asisipho:asisipho123@localhost:5432/users
+     DATABASE_URL: postgres://asisipho:asisipho123@localhost:5432/users?ssl=false
