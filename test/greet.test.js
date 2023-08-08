@@ -1,12 +1,7 @@
 import assert from 'assert';
-// import db from '../db.js';
+import db from '../db/db.js';
 import Greetings from '../db/db-logic.js';
 
-import pgPromise from 'pg-promise';
-import 'dotenv/config';
-
-const db = pgPromise()(process.env.DATABASE_URL);
-db.connect()
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
@@ -63,7 +58,7 @@ describe('Database Tests For Greetings WebApp', () => {
     await greetings.insertValues('Asi');
     await greetings.insertValues('Asiphe');
     await greetings.insertValues('Asisiphe');
-
+    
     // Retrieve all names and counts from the database
     const allData = await greetings.getAll();
 
@@ -81,7 +76,7 @@ describe('Database Tests For Greetings WebApp', () => {
         name: 'Asisiphe'
       }
     ]);
-  });
+});
 
   it('should retrieve an empty array when there are no entries in the database', async () => {
     // Retrieve all names and counts from the empty database
@@ -92,6 +87,6 @@ describe('Database Tests For Greetings WebApp', () => {
 
   after(function () {
     db.$pool.end;
-  });
+});
 
 });
