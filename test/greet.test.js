@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Greetings from '../db/db-logic.js';
 
-const pgp = require("pg-promise")();
+import pgPromise from 'pg-promise';
 
 const connectionString = process.env.DATABASE_URL || "postgres://localhost:5432/users";
 
