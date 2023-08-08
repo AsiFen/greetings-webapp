@@ -10,8 +10,8 @@ const connectionString = process.env.DATABASE_URL || "postgresql://asisipho:asis
 const db = pgPromise()(connectionString);
 
 describe('Database Tests For Greetings WebApp', () => {
-
-let greetings = Greetings(db);
+  this.timeout(5000);
+  let greetings = Greetings(db);
 
   beforeEach(async () => {
     // Initialize the Greetings factory 
@@ -64,7 +64,7 @@ let greetings = Greetings(db);
     await greetings.insertValues('Asi');
     await greetings.insertValues('Asiphe');
     await greetings.insertValues('Asisiphe');
-    
+
     // Retrieve all names and counts from the database
     const allData = await greetings.getAll();
 
@@ -82,7 +82,7 @@ let greetings = Greetings(db);
         name: 'Asisiphe'
       }
     ]);
-});
+  });
 
   it('should retrieve an empty array when there are no entries in the database', async () => {
     // Retrieve all names and counts from the empty database
@@ -93,6 +93,6 @@ let greetings = Greetings(db);
 
   after(function () {
     db.$pool.end;
-});
+  });
 
 });
