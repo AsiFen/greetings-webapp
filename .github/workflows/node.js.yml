@@ -10,32 +10,14 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
     strategy:
       matrix:
         node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    services:
-      postgres:
-        image: postgres:latest
-        
-        env:
-          POSTGRES_DB: users
-          POSTGRES_PASSWORD: asisipho123
-          POSTGRES_PORT: 5432
-          POSTGRES_USER: asisipho
-        ports:
-          - 5432:5432
-        
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -46,6 +28,5 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    env:
-     PGSSLMODE: require
-     DATABASE_URL: postgres://asisipho:asisipho123@localhost:5432/users
+      env:
+       DATABASE_URL: ${{ secrets.DATABASE_URL }}
