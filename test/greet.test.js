@@ -1,7 +1,17 @@
 import assert from 'assert';
-import db from '../db.js';
+// import db from '../db.js';
 import Greetings from '../db-logic.js';
 
+import pgPromise from 'pg-promise';
+import 'dotenv/config';
+
+const connectPromise = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {rejectUnauthorized: false},
+};
+
+const db = pgPromise()(connectPromise);
+db.connect() 
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
