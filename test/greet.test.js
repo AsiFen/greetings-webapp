@@ -7,7 +7,7 @@ import 'dotenv/config';
 
 const connectPromise = {
   connectionString: process.env.DATABASE_URL,
-  ssl: false
+  ssl: true
 };
 
 const db = pgPromise()(connectPromise);
