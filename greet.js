@@ -1,5 +1,5 @@
 //import database
-import db from './db.js';
+import db from './db/db.js';
 
 // made my function into a variable to 
 export default function GreetingsExercise(db) {
