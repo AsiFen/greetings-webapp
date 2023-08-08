@@ -4,7 +4,7 @@ CREATE TABLE greetings (
     name varchar(100)
 )
 
-CREATE TABLE greeting(
+CREATE TABLE greeting (
     name VARCHAR(100) PRIMARY KEY,
     count INTEGER NOT NULL
 );

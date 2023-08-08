@@ -11,7 +11,6 @@ const db = pgPromise()(connectionString);
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings = Greetings(db);
-  this.timeout(5000);
 
   beforeEach(async () => {
     // Initialize the Greetings factory 
@@ -20,6 +19,8 @@ describe('Database Tests For Greetings WebApp', () => {
   });
 
   it('should insert and retrieve a name', async () => {
+    // this.timeout(5000);
+
     await greetings.insertValues('Nonzwakazi');
 
     const result = await greetings.getName('Nonzwakazi');
