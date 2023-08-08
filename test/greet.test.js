@@ -1,18 +1,23 @@
 import assert from 'assert';
-import db from '../db/db.js';
+import db from '../db.js';
 import Greetings from '../db/db-logic.js';
 
+const pgp = require("pg-promise")();
+
+const connectionString = process.env.DATABASE_URL || "postgres://localhost:5432/users";
+
+const db = pgp(connectionString);
 
 describe('Database Tests For Greetings WebApp', () => {
   let greetings;
   greetings = Greetings(db);
 
   
-  // beforeEach(async () => {
-  //   // Initialize the Greetings factory 
-  //   // Reset the database before each test
-  //   await greetings.reset();
-  // });
+  beforeEach(async () => {
+    // Initialize the Greetings factory 
+    // Reset the database before each test
+    await greetings.reset();
+  });
 
   it('should insert and retrieve a name', async () => {
     await greetings.insertValues('Nonzwakazi');

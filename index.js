@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 import flash from 'express-flash';
 import session from 'express-session';
 
-import db from './db/db.js';
+import db from './db.js';
 
 
 //creating an instance of the epxress module
@@ -47,7 +47,7 @@ app.use(express.static('public'))
 app.get('/test', async (req, res) => {
     try {
       // Replace 'greetings' with the name of your table
-      const result = await db.any('SELECT * FROM greeting_counts');
+      const result = await db.any('SELECT * FROM greeting');
       res.json(result);
     } catch (error) {
       console.error('Error executing query:', error);

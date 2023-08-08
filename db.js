@@ -1,5 +1,4 @@
 import pgPromise from 'pg-promise';
-import 'dotenv/config';
 
 const connectPromise = {
     connectionString: process.env.DATABASE_URL,
