@@ -1,5 +1,4 @@
 import assert from 'assert';
-import db from '../db.js';
 import Greetings from '../db/db-logic.js';
 
 const pgp = require("pg-promise")();
