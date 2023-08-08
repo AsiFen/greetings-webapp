@@ -3,15 +3,16 @@ import Greetings from '../db/db-logic.js';
 
 import pgPromise from 'pg-promise';
 
-const connectionString = process.env.DATABASE_URL || "postgresql://localhost:5432/users";
+
+
+const connectionString = process.env.DATABASE_URL || "postgresql://asisipho:asisipho123@localhost:5432/users";
 
 const db = pgPromise()(connectionString);
 
 describe('Database Tests For Greetings WebApp', () => {
-  let greetings;
-  greetings = Greetings(db);
 
-  
+let greetings = Greetings(db);
+
   beforeEach(async () => {
     // Initialize the Greetings factory 
     // Reset the database before each test
