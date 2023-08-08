@@ -3,7 +3,7 @@ import Greetings from '../db/db-logic.js';
 
 import pgPromise from 'pg-promise';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL || "postgresql://localhost:5432/users";
 
 const db = pgPromise()(connectionString);
 
