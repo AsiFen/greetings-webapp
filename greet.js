@@ -82,8 +82,8 @@ export default function GreetingsExercise() {
         name = '';
         countGreeting = 0;
         greeting = '';
+        userNames = {}; // Clear the userNames object
         return await db.none('DELETE FROM greeting');
-
     }
 
     return {

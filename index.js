@@ -86,13 +86,9 @@ app.get('/greeted', (req, res) => {
 
 app.get('/counter/:users_name', (req, res) => {
     const users_name = req.params.users_name;
-    // const names = greet_instance.getNames();
-    // console.log(names); // Output: ["John", "Jane", "Peter"]
-
-    // names.forEach((name) => {
+ 
     const count = greet_instance.getValues(users_name);
-    //   console.log(`${name}: ${count}`);
-    // });
+    
     res.render('counter', {
         username: users_name,
         userCount: count
