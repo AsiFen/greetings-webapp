@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 import flash from 'express-flash';
 import session from 'express-session';
 
-import db from './db/db.js';
+import db from './db.js';
 
 //creating an instance of the epxress module
 let app = express()
