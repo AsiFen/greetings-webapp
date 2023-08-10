@@ -29,13 +29,13 @@ export default function GreetingsExercise() {
 
     }
 
-     async function countGreet(db) {
+    async function countGreet(db) {
         if (name) {
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
                 // Update the count in the 'greeting_counts' table
-               await db.none('INSERT INTO greeting(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [name])
+                await db.none('INSERT INTO greeting(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [name])
                     .catch((error) => {
                         console.error('Error inserting/updating greeting count into database:', error);
                     });
@@ -43,7 +43,7 @@ export default function GreetingsExercise() {
             }
             userNames[name] += 1; // Update the count in the userNames object
             // Update the count in the 'greeting' table
-           await db.none('UPDATE greeting SET count = $1 WHERE name = $2', [userNames[name], name])
+            await db.none('UPDATE greeting SET count = $1 WHERE name = $2', [userNames[name], name])
                 .catch((error) => {
                     console.error('Error updating greeting count in database:', error);
                 });
@@ -78,9 +78,12 @@ export default function GreetingsExercise() {
         }
     }
 
-    async function reset(){
-       return await db.none('DELETE FROM greeting')
-       
+    async function reset() {
+        name = '';
+        countGreeting = 0;
+        greeting = '';
+        return await db.none('DELETE FROM greeting');
+
     }
 
     return {
@@ -89,7 +92,7 @@ export default function GreetingsExercise() {
         makeGreet,
         errors,
         getNames,
-        getValues, 
+        getValues,
         reset
     }
 }

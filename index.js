@@ -46,7 +46,7 @@ app.use(express.static('public'))
 app.get('/test', async (req, res) => {
     try {
         // Replace 'greetings' with the name of your table
-        const result = await db.any('SELECT * FROM greeting');
+        const result = await db.any('DELETE FROM greeting');
         res.json(result);
     } catch (error) {
         console.error('Error executing query:', error);
@@ -99,9 +99,9 @@ app.get('/counter/:users_name', (req, res) => {
     })
 })
 
-app.post('/reset',  (req, res) => {
+app.post('/reset', async (req, res) => {
      greet_instance.reset();
-    // res.redirect('/')
+    res.redirect('/')
 })
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 3005;
