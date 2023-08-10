@@ -2,7 +2,7 @@
 import db from './db.js';
 
 // made my function into a variable to 
-export default function GreetingsExercise(db) {
+export default function GreetingsExercise() {
     let userNames = {};
     let greeting;
     let countGreeting = 0;
@@ -28,13 +28,14 @@ export default function GreetingsExercise(db) {
         return greeting
 
     }
-    function countGreet() {
+
+     async function countGreet(db) {
         if (name) {
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
                 // Update the count in the 'greeting_counts' table
-                db.none('INSERT INTO greeting(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [name])
+               await db.none('INSERT INTO greeting(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [name])
                     .catch((error) => {
                         console.error('Error inserting/updating greeting count into database:', error);
                     });
@@ -42,7 +43,7 @@ export default function GreetingsExercise(db) {
             }
             userNames[name] += 1; // Update the count in the userNames object
             // Update the count in the 'greeting' table
-            db.none('UPDATE greeting SET count = $1 WHERE name = $2', [userNames[name], name])
+           await db.none('UPDATE greeting SET count = $1 WHERE name = $2', [userNames[name], name])
                 .catch((error) => {
                     console.error('Error updating greeting count in database:', error);
                 });
@@ -77,12 +78,18 @@ export default function GreetingsExercise(db) {
         }
     }
 
+    async function reset(){
+       return await db.none('DELETE FROM greeting')
+       
+    }
+
     return {
         getGreeting,
         countGreet,
         makeGreet,
         errors,
         getNames,
-        getValues
+        getValues, 
+        reset
     }
 }

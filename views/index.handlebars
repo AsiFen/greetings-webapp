@@ -1,7 +1,6 @@
 <div class="greet_user">
-    <form action="/greetings" method="POST">
-
-        <div class="index flex flex-col justify-center items-center">
+    <div class="index flex flex-col justify-center items-center">
+        <form action="/greetings" method="POST">
             <p class="text-purple-700 text-4xl py-6">Greet Me Widget!</p>
             <div class="">
                 <label class="block text-gray-700 text-md mb-2" for="username">
@@ -29,7 +28,7 @@
                     <span>{{theGreeting}}</span>
                 </div>
             </div>
-            <div class="text-4xl bg-gradient-to-r from-purple-300 via-pink-500 p-4 rounded">
+            <div class="text-center text-4xl bg-gradient-to-r from-purple-300 via-pink-500 p-4 rounded">
                 <span>
                     {{counter}}
                 </span>
@@ -38,26 +37,19 @@
             <div class="message_display mb-4">
                 <span>{{error_messages}}</span>
             </div>
+        </form>
 
-<div class="space-evenly">
-    <button
-        class="shadow bg-purple-600 hover:bg-purple-800 focus:shadow-outline focus:outline-none text-white py-2 px-2 rounded mx-2">
-        <a href="/greeted" class="">Greeted Names</a>
-    </button>
-     <button
-        class="shadow bg-blue-600 hover:bg-purple-800 focus:shadow-outline focus:outline-none text-white py-2 px-2 rounded mx-2">
-        <a href="/reset" class="">reset?</a>
-    </button>
-</div>
-
-<div>
-   
-</div>
-
+        <div class="space-evenly">
+            <button
+                class="shadow bg-purple-600 hover:bg-purple-800 focus:shadow-outline focus:outline-none text-white py-2 px-2 rounded mx-2">
+                <a href="/greeted" class="">Greeted Names</a>
+            </button>
+            <form action="/reset" method="post" style="display: inline;">
+                <button type="submit"
+                    class="shadow bg-blue-600 hover:bg-purple-800 focus:shadow-outline focus:outline-none text-white py-2 px-2 rounded mx-2">
+                    Reset
+                </button>
+            </form>
         </div>
-    </form>
-</div>
-
-
-
-</div>
+    </div>
+<div>

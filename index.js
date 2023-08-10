@@ -45,22 +45,23 @@ app.use(express.static('public'))
 // Test route to select data from the 'greetings' table
 app.get('/test', async (req, res) => {
     try {
-      // Replace 'greetings' with the name of your table
-      const result = await db.any('SELECT * FROM greeting');
-      res.json(result);
+        // Replace 'greetings' with the name of your table
+        const result = await db.any('SELECT * FROM greeting');
+        res.json(result);
     } catch (error) {
-      console.error('Error executing query:', error);
-      res.status(500).json({ error: 'Failed to retrieve data from the database.' });
+        console.error('Error executing query:', error);
+        res.status(500).json({ error: 'Failed to retrieve data from the database.' });
     }
-  });
+});
 
 //root directory
 //displays greetings index page 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     const error_message = req.flash('errorDisplay')[0]
+    const greetingCount = await greet_instance.countGreet(db)
     res.render('index', {
         theGreeting: greet_instance.getGreeting(),
-        counter: greet_instance.countGreet(),
+        counter: greetingCount,
         error_messages: error_message
     })
 })
@@ -98,9 +99,9 @@ app.get('/counter/:users_name', (req, res) => {
     })
 })
 
-app.post('/reset', (req,res)=>{
-    
-res.redirect('/')
+app.post('/reset',  (req, res) => {
+     greet_instance.reset();
+    // res.redirect('/')
 })
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 3005;
