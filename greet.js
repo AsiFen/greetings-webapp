@@ -7,10 +7,12 @@ export default function GreetingsExercise() {
     let greeting;
     let countGreeting = 0;
     let name = '';
+    let lang_chosen = '';
 
     function makeGreet(name1, language) {
         if (name1.match(/^[a-zA-Z]+$/)) {
             name = name1.charAt(0).toUpperCase() + name1.slice(1).toLocaleLowerCase()
+            lang_chosen = language;
             if (language == 'english') {
                 greeting = 'Hello, ' + name
             }
@@ -21,7 +23,6 @@ export default function GreetingsExercise() {
                 greeting = 'Molo, ' + name
             }
         }
-
     }
 
     function getGreeting() {
@@ -30,7 +31,7 @@ export default function GreetingsExercise() {
     }
 
     async function countGreet(db) {
-        if (name) {
+        if (name && lang_chosen) {
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
@@ -39,7 +40,6 @@ export default function GreetingsExercise() {
                     .catch((error) => {
                         console.error('Error inserting/updating greeting count into database:', error);
                     });
-
             }
             userNames[name] += 1; // Update the count in the userNames object
             // Update the count in the 'greeting' table
@@ -64,17 +64,18 @@ export default function GreetingsExercise() {
     }
 
     function errors(name, language) {
-        if (!name.match(/^[a-zA-Z]+$/)) {
-            return 'Enter alphabetical characters'
-        }
+
         if (name == '' && language == null) {
             return "Please enter name and select language."
         }
-        if (language == null) {
+        else if (language == null) {
             return "Language not selected."
         }
-        if (name == '') {
+     else if (name == '') {
             return "Please enter your name."
+        }
+       else if (!name.match(/^[a-zA-Z]+$/)) {
+            return "Enter alphabetical characters."
         }
     }
 

@@ -58,11 +58,15 @@ app.get('/test', async (req, res) => {
 //displays greetings index page 
 app.get('/', async (req, res) => {
     const error_message = req.flash('errorDisplay')[0]
+    const reset_message = req.flash('resetMessage')[0]
     const greetingCount = await greet_instance.countGreet(db)
+    const shouldShowGreeting = !error_message; // Hide greeting if error message is present
+
     res.render('index', {
-        theGreeting: greet_instance.getGreeting(),
+        theGreeting: shouldShowGreeting ? greet_instance.getGreeting() : '',
         counter: greetingCount,
-        error_messages: error_message
+        error_messages: error_message,
+        reset_message : reset_message
     })
 })
 
@@ -97,6 +101,7 @@ app.get('/counter/:users_name', (req, res) => {
 
 app.post('/reset', async (req, res) => {
      greet_instance.reset();
+     req.flash('resetMessage', 'You have cleared your database!')
     res.redirect('/')
 })
 //process the enviroment the port is running on
