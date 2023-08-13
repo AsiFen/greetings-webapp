@@ -1,7 +1,7 @@
-<div class="greet_user">
+<div class="greet_user mt-8">
     <div class="index flex flex-col justify-center items-center">
-        <form action="/greetings" method="POST">
-            <p class="text-purple-700 text-4xl py-6">Greet Me Widget!</p>
+        <form action="/greetings" method="POST" class="w-full max-w-md p-6 bg-pink rounded-lg shadow-lg">
+            <p class="text-center text-gray-700 text-4xl py-2">Greet Me Widget!</p>
             <div class="">
                 <label class="block text-gray-700 text-md mb-2" for="username">
                     Enter Your Name:
@@ -24,7 +24,7 @@
                         type="submit"> Greet Me! </button>
                 </div>
 
-                <div class="greet_display text-center py-4 px-4 mb-4 bg-purple-200">
+                <div class="greet_display text-center py-4 px-4 mt-4 bg-purple-200">
                     {{#if theGreeting}}
                     <span>{{theGreeting}}</span>
                     {{else}}
@@ -37,7 +37,7 @@
 
 
             </div>
-            <div class="text-center text-4xl bg-gradient-to-r from-purple-300 via-pink-500 p-4 rounded">
+            <div class="text-center text-4xl mt-4 p-4 rounded">
                 <span>
                     {{counter}}
                 </span>
@@ -45,16 +45,18 @@
         </form>
 
         <div class="space-evenly">
-            <button
-                class="shadow bg-purple-600 hover:bg-purple-800 focus:shadow-outline focus:outline-none text-white py-2 px-2 rounded mx-2 mt-4">
-                <a href="/greeted" class="">Greeted Names</a>
-            </button>
+
+            <a href="/greeted"
+                class="greeted-button px-4 py-2 rounded-full border-2 border-primary text-gray-700 hover:bg-primary hover:text-white">
+                View Greeted Names
+            </a>
             <form action="/reset" method="post" style="display: inline;">
                 <button type="submit"
-                    class="shadow bg-blue-600 hover:bg-purple-800 focus:shadow-outline focus:outline-none text-white py-2 px-2 rounded mx-2 mt-4">
+                    class="reset-button mt-2 bg-white text-gray-700 border-2 border-primary px-4 py-2 rounded-full ml-4 hover:bg-neutral-700 hover:text-white">
+
                     Reset
                 </button>
             </form>
         </div>
     </div>
-    <div>
+</div>
