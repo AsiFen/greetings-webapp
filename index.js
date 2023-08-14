@@ -11,6 +11,9 @@ import session from 'express-session';
 
 import db from './db.js';
 
+//import routes
+import indexRoute from './routes/route_index.js';
+
 //creating an instance of the epxress module
 let app = express()
 //create an instance of my greetings function imported as module
@@ -21,7 +24,7 @@ app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 // app.set('views', './views');
 
-
+let index_route = indexRoute();
 // initialise session middleware - flash-express depends on it
 app.use(session({
     secret: "<add a secret string here>",
@@ -42,6 +45,10 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 
+
+
+//
+
 // Test route to select data from the 'greetings' table
 app.get('/test', async (req, res) => {
     try {
@@ -56,19 +63,8 @@ app.get('/test', async (req, res) => {
 
 //root directory
 //displays greetings index page 
-app.get('/', async (req, res) => {
-    const error_message = req.flash('errorDisplay')[0]
-    const reset_message = req.flash('resetMessage')[0]
-    const greetingCount = await greet_instance.countGreet(db)
-    const shouldShowGreeting = !error_message; // Hide greeting if error message is present
-
-    res.render('index', {
-        theGreeting: shouldShowGreeting ? greet_instance.getGreeting() : '',
-        counter: greetingCount,
-        error_messages: error_message,
-        reset_message : reset_message
-    })
-})
+app.get('/', index_route.make_greeting);
+app.post('/', index_route.reset)
 
 //creates greetings and error messages
 app.post('/greetings', (req, res) => {
@@ -90,9 +86,9 @@ app.get('/greeted', (req, res) => {
 
 app.get('/counter/:users_name', (req, res) => {
     const users_name = req.params.users_name;
- 
+
     const count = greet_instance.getValues(users_name);
-    
+
     res.render('counter', {
         username: users_name,
         userCount: count
@@ -100,9 +96,7 @@ app.get('/counter/:users_name', (req, res) => {
 })
 
 app.post('/reset', async (req, res) => {
-     greet_instance.reset();
-     req.flash('resetMessage', 'You have cleared your database!')
-    res.redirect('/')
+
 })
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 3005;
