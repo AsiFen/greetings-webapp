@@ -2,7 +2,7 @@
 
 // importing the modules 
 import express from 'express'
-import Greetings from './greet.js'
+import GreetingsExercise from './greet.js'
 import exphbs from 'express-handlebars'
 import bodyParser from 'body-parser';
 //flash - still don't know what it does. How is different to normal templating?
@@ -22,7 +22,7 @@ let dblogic = Greetings();
 //creating an instance of the epxress module
 let app = express()
 //create an instance of my greetings function imported as module
-let greet_instance = Greetings(db)
+let greet_instance = GreetingsExercise(db)
 
 //configuring the handlebars module
 app.engine('handlebars', exphbs.engine());
