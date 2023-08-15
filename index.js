@@ -8,14 +8,13 @@ import bodyParser from 'body-parser';
 //flash - still don't know what it does. How is different to normal templating?
 import flash from 'express-flash';
 import session from 'express-session';
-
+//import my db 
 import db from './db.js';
 
 //import routes
 import indexRoute from './routes/route_index.js';
 import greetedRoute from './routes/route_greet.js';
 import counterRoute from './routes/route_counter.js';
-
 
 //creating an instance of the epxress module
 let app = express()
@@ -31,7 +30,6 @@ app.set('view engine', 'handlebars');
 let index_route = indexRoute(greet_instance, db);
 let greeted_route = greetedRoute(greet_instance);
 let counter_route = counterRoute(greet_instance);
-
 
 // initialise session middleware - flash-express depends on it
 app.use(session({
@@ -70,19 +68,17 @@ app.get('/test', async (req, res) => {
 //displays greetings index page 
 app.get('/', index_route.make_greeting);
 app.post('/', index_route.reset)
-
 //creates greetings and error messages
 app.post('/greetings', greeted_route.showGreeting);
-
 //display list of all users that have been greeted 
 app.get('/greeted', greeted_route.get_names);
-
+//display for each use show many times they have been greeted
 app.get('/counter/:users_name', counter_route.get_counter)
-
+//reset the db
 app.post('/reset', index_route.reset)
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 3005;
-
+//listen on te port 
 app.listen(PORT, () => {
     console.log('App started...', PORT);
 })

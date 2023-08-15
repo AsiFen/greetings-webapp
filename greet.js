@@ -1,9 +1,7 @@
-//import database
-import db from './db.js';
-import dblogic from './db/db-logic.js'
+
 
 // made my function into a variable to 
-export default function GreetingsExercise() {
+export default function GreetingsExercise(dblogic) {
     let userNames = {};
     let greeting;
     let countGreeting = 0;
@@ -36,18 +34,20 @@ export default function GreetingsExercise() {
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
-                // Update the count in the 'greeting_counts' table
-                await db.none('INSERT INTO greeting(name, count) VALUES($1, 1) ON CONFLICT (name) DO UPDATE SET count = greeting.count + 1', [name])
-                    .catch((error) => {
-                        console.error('Error inserting/updating greeting count into database:', error);
-                    });
+
+                // Use the insertValues function from greetingsDb
+            await greetingsDb.insertValues(name)
+            .catch((error) => {
+                console.error('Error inserting/updating greeting count into database:', error);
+            });
             }
             userNames[name] += 1; // Update the count in the userNames object
-            // Update the count in the 'greeting' table
-            await db.none('UPDATE greeting SET count = $1 WHERE name = $2', [userNames[name], name])
-                .catch((error) => {
-                    console.error('Error updating greeting count in database:', error);
-                });
+          
+        // Use the updateName function from greetingsDb
+        await greetingsDb.updateName(name, userNames[name])
+        .catch((error) => {
+            console.error('Error updating greeting count in database:', error);
+        });
             return countGreeting;
         } else {
             countGreeting += 0;
@@ -85,7 +85,8 @@ export default function GreetingsExercise() {
         countGreeting = 0;
         greeting = '';
         userNames = {}; // Clear the userNames object
-        return await db.none('DELETE FROM greeting');
+    // Use the reset function from greetingsDb
+    await greetingsDb.reset()
     }
 
     return {
