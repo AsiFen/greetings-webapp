@@ -13,6 +13,9 @@ import db from './db.js';
 
 //import routes
 import indexRoute from './routes/route_index.js';
+import greetedRoute from './routes/route_greet.js';
+import counterRoute from './routes/route_counter.js';
+
 
 //creating an instance of the epxress module
 let app = express()
@@ -24,7 +27,12 @@ app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 // app.set('views', './views');
 
-let index_route = indexRoute();
+//instantiate the routes
+let index_route = indexRoute(greet_instance, db);
+let greeted_route = greetedRoute(greet_instance);
+let counter_route = counterRoute(greet_instance);
+
+
 // initialise session middleware - flash-express depends on it
 app.use(session({
     secret: "<add a secret string here>",
@@ -43,9 +51,6 @@ app.use(bodyParser.json())
 
 //built-in static middleware from ExpressJS to use static resources
 app.use(express.static('public'))
-
-
-
 
 //
 
@@ -67,37 +72,14 @@ app.get('/', index_route.make_greeting);
 app.post('/', index_route.reset)
 
 //creates greetings and error messages
-app.post('/greetings', (req, res) => {
-    greet_instance.makeGreet(req.body.nameInput, req.body.language)
-    const errorMessages = greet_instance.errors(req.body.nameInput, req.body.language)
-    req.flash('errorDisplay', errorMessages)
-    //redirects you to the home route when done sending in parameters
-    res.redirect('/')
-
-})
+app.post('/greetings', greeted_route.showGreeting);
 
 //display list of all users that have been greeted 
-app.get('/greeted', (req, res) => {
-    res.render('greeted', {
-        usernames: greet_instance.getNames()
-    })
-    // res.redirect('/')
-})
+app.get('/greeted', greeted_route.get_names);
 
-app.get('/counter/:users_name', (req, res) => {
-    const users_name = req.params.users_name;
+app.get('/counter/:users_name', counter_route.get_counter)
 
-    const count = greet_instance.getValues(users_name);
-
-    res.render('counter', {
-        username: users_name,
-        userCount: count
-    })
-})
-
-app.post('/reset', async (req, res) => {
-
-})
+app.post('/reset', index_route.reset)
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 3005;
 

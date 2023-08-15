@@ -1,7 +1,7 @@
-import GreetingsExercise from "../greet";
-let greet_instance = GreetingsExercise();
+// import GreetingsExercise from "../greet";
+// let greet_instance = GreetingsExercise();
 
-export default function indexRoute() {
+export default function indexRoute(greet_instance, db) {
 
     async function make_greeting(req, res) {
         try {

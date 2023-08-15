@@ -1,5 +1,6 @@
 //import database
 import db from './db.js';
+import dblogic from './db/db-logic.js'
 
 // made my function into a variable to 
 export default function GreetingsExercise() {
