@@ -1,13 +1,13 @@
 // import GreetingsExercise from "../greet";
 // let greet_instance = GreetingsExercise();
 
-export default function indexRoute(greet_instance, db) {
+export default function indexRoute(greet_instance, dblogic) {
 
     async function make_greeting(req, res) {
         try {
             const error_message = req.flash('errorDisplay')[0];
             const reset_message = req.flash('resetMessage')[0];
-            const greetingCount = await greet_instance.countGreet(db)
+            const greetingCount = await greet_instance.countGreet(dblogic)
             const shouldShowGreeting = !error_message; // Hide greeting if error message is present
 
             res.render('index', {
@@ -25,7 +25,7 @@ export default function indexRoute(greet_instance, db) {
 
     async function reset(req, res) {
         try {
-            greet_instance.reset();
+            greet_instance.reset(dblogic);
             req.flash('resetMessage', 'You have cleared your database!')
             res.redirect('/')
         }

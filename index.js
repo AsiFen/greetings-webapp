@@ -18,11 +18,11 @@ import greetedRoute from './routes/route_greet.js';
 import counterRoute from './routes/route_counter.js';
 
 // instantiate db logic ff Greetings
-let dblogic = Greetings();
+let dblogic = Greetings(db);
 //creating an instance of the epxress module
 let app = express()
 //create an instance of my greetings function imported as module
-let greet_instance = GreetingsExercise(db)
+let greet_instance = GreetingsExercise()
 
 //configuring the handlebars module
 app.engine('handlebars', exphbs.engine());
@@ -30,7 +30,7 @@ app.set('view engine', 'handlebars');
 // app.set('views', './views');
 
 //instantiate the routes
-let index_route = indexRoute(greet_instance, db);
+let index_route = indexRoute(greet_instance, dblogic);
 let greeted_route = greetedRoute(greet_instance);
 let counter_route = counterRoute(greet_instance);
 

@@ -1,7 +1,7 @@
 
 
 // made my function into a variable to 
-export default function GreetingsExercise(dblogic) {
+export default function GreetingsExercise() {
     let userNames = {};
     let greeting;
     let countGreeting = 0;
@@ -29,14 +29,14 @@ export default function GreetingsExercise(dblogic) {
 
     }
 
-    async function countGreet() {
+    async function countGreet(dblogic) {
         if (name && lang_chosen) {
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
 
                 // Use the insertValues function from greetingsDb
-            await greetingsDb.insertValues(name)
+            await dblogic.insertValues(name)
             .catch((error) => {
                 console.error('Error inserting/updating greeting count into database:', error);
             });
@@ -44,7 +44,7 @@ export default function GreetingsExercise(dblogic) {
             userNames[name] += 1; // Update the count in the userNames object
           
         // Use the updateName function from greetingsDb
-        await greetingsDb.updateName(name, userNames[name])
+        await dblogic.updateName(name, userNames[name])
         .catch((error) => {
             console.error('Error updating greeting count in database:', error);
         });
@@ -80,13 +80,13 @@ export default function GreetingsExercise(dblogic) {
         }
     }
 
-    async function reset() {
+    async function reset(dblogic) {
         name = '';
         countGreeting = 0;
         greeting = '';
         userNames = {}; // Clear the userNames object
     // Use the reset function from greetingsDb
-    await greetingsDb.reset()
+    await dblogic.reset()
     }
 
     return {

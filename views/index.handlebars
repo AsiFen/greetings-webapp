@@ -24,18 +24,23 @@
                         type="submit"> Greet Me! </button>
                 </div>
 
-                <div class="greet_display text-center py-4 px-4 mt-4 bg-purple-200">
+                <div class="greet_display text-center mt-4 bg-purple-200">
                     {{#if theGreeting}}
                     <span>{{theGreeting}}</span>
                     {{else}}
-                    <span>{{error_messages}}</span>
+                    {{#if error_messages}}
+                    <div
+                        class="border border-solid border-red-500 py-4 px-4 bg-red-200 bg-no-repeat bg-center text-red-700">
+                        <span>{{error_messages}}</span>
+                    </div>
+                    {{/if}}
                     {{/if}}
                     {{#if reset_message}}
-                    <span>{{reset_message}}</span>
+                    <div class="border border-solid border-green-500 mx-auto p-4 bg-green-200 bg-no-repeat bg-center text-green-700">
+                        <span>{{reset_message}}</span>
+                    </div> 
                     {{/if}}
                 </div>
-
-
             </div>
             <div class="text-center text-4xl mt-4 p-4 rounded">
                 <span>
