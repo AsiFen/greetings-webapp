@@ -29,7 +29,7 @@ export default function GreetingsExercise(dblogic) {
 
     }
 
-    async function countGreet(db) {
+    async function countGreet() {
         if (name && lang_chosen) {
             if (userNames[name] === undefined) {
                 userNames[name] = 0; // Initialize the count for the name

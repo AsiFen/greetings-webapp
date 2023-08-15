@@ -10,12 +10,15 @@ import flash from 'express-flash';
 import session from 'express-session';
 //import my db 
 import db from './db.js';
+import Greetings from './db/db-logic.js';
 
 //import routes
 import indexRoute from './routes/route_index.js';
 import greetedRoute from './routes/route_greet.js';
 import counterRoute from './routes/route_counter.js';
 
+// instantiate db logic ff Greetings
+let dblogic = Greetings();
 //creating an instance of the epxress module
 let app = express()
 //create an instance of my greetings function imported as module
