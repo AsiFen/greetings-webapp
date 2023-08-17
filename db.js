@@ -11,12 +11,7 @@ const connectPromise = {
 const db = pgPromise()(connectPromise);
 
 db.connect();
-// .then(result =>{
-//     console.log('result');
-// })
-// .catch(error =>{
-//     console.log('error');
-// })
+
 //export the database
 export default db;
 

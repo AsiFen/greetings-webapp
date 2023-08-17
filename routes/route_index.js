@@ -1,5 +1,3 @@
-// import GreetingsExercise from "../greet";
-// let greet_instance = GreetingsExercise();
 
 export default function indexRoute(greet_instance, dblogic) {
 
@@ -37,6 +35,5 @@ export default function indexRoute(greet_instance, dblogic) {
     return {
         make_greeting,
         reset
-
     }
 }

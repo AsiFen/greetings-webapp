@@ -25,7 +25,7 @@ export default function GreetingsExercise() {
     }
 
     function getGreeting() {
-        return greeting
+        return greeting;
 
     }
 
@@ -35,7 +35,7 @@ export default function GreetingsExercise() {
                 userNames[name] = 0; // Initialize the count for the name
                 countGreeting++; // Increment the count
 
-                // Use the insertValues function from greetingsDb
+                // Use the insertValues function from database logic function
             await dblogic.insertValues(name)
             .catch((error) => {
                 console.error('Error inserting/updating greeting count into database:', error);
@@ -43,21 +43,24 @@ export default function GreetingsExercise() {
             }
             userNames[name] += 1; // Update the count in the userNames object
           
-        // Use the updateName function from greetingsDb
+        // Use the updateName function from database logic function
         await dblogic.updateName(name, userNames[name])
         .catch((error) => {
             console.error('Error updating greeting count in database:', error);
         });
+
             return countGreeting;
-        } else {
+
+        }
+         else {
             countGreeting += 0;
             return countGreeting;
         }
     }
 
     function getNames() {
-        let users_name = Object.keys(userNames)
-        return users_name
+        let users_name = Object.keys(userNames) // returns list of 'keys' which is going to be all the names greeted
+        return users_name;
     }
     function getValues(username) {
         let userCount = userNames[username]
@@ -85,8 +88,8 @@ export default function GreetingsExercise() {
         countGreeting = 0;
         greeting = '';
         userNames = {}; // Clear the userNames object
-    // Use the reset function from greetingsDb
-    await dblogic.reset()
+    // Use the reset function from database logic function
+    await dblogic.reset();
     }
 
     return {

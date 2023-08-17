@@ -1,11 +1,4 @@
-/* .counter {
-    float: right;
-    width: 50%;
-
-} */
-
 .container{
-    /* display: grid; */
     justify-content: center;
 }
 
