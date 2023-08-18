@@ -1,3 +1,4 @@
+
 <div class="wave flex flex-col justify-center items-center mt-12">
     <p class="text-2xl text-gray-900 mb-3 underline">Names Greeted</p>
     <ol class="list-decimal"> <!-- This list will have numbers -->
@@ -5,11 +6,16 @@
 
         <a class="hover:bg-red-500" href="/counter/{{this}}">
             <li class="py-2 px-2 mx-4 mb-2"> {{this}}
-                 <button class="bg-purple-500 py-2 mb-2 px-2 mx-4 justify-items-end float-right rounded">view</button>
-            </li> 
+                <button class="bg-purple-400 py-2 mb-2 px-2 mx-4 justify-items-end float-right rounded-full border-2 border-primary ">view</button>
+            </li>
         </a>
 
         {{/each}}
     </ol>
-   
+
 </div>
+<nav class="navigate_me flex flex-row justify-evenly">
+    <a href="/"
+        class="mt-12 px-4 py-2 rounded-full border-2 border-primary text-gray-700 hover:bg-primary hover:text-white">return
+        home</a>
+</nav>

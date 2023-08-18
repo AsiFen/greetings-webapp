@@ -11,7 +11,6 @@ const connectPromise = {
 const db = pgPromise()(connectPromise);
 
 db.connect();
-
 //export the database
 export default db;
 
